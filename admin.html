@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>لوحة التحكم - نظام الحضور</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #8B0000;
+            --secondary: #660000;
+            --accent: #A52A2A;
+            --light: #FFF5F5;
+            --dark: #660000;
+            --text: #8B0000;
+            --shadow: 0 4px 15px rgba(139, 0, 0, 0.2);
+            --gold: #D4AF37;
+            --background: white;
+            --card-bg: white;
+            --text-primary: #333;
+            --text-secondary: #666;
+            --border: #E0E0E0;
+            --success: #28a745;
+            --warning: #ffc107;
+            --info: #17a2b8;
+            --danger: #dc3545;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: var(--background);
+            color: var(--text-primary);
+            padding: 20px;
+            direction: rtl;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 20px;
+            text-align: center;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            opacity: 0.9;
+        }
+
+        .tabs {
+            display: flex;
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 10px;
+            margin-bottom: 25px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+        }
+
+        .tab {
+            padding: 15px 30px;
+            cursor: pointer;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        .tab.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-card .number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .stat-card .label {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            font-weight: 600;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--card-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: center;
+            border-bottom: 1px solid var(--border);
+        }
+
+        th {
+            background: var(--primary);
+            color: white;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        tr:hover {
+            background: rgba(139, 0, 0, 0.05);
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-family: 'Cairo', sans-serif;
+            margin: 5px;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-danger {
+            background: var(--danger);
+            color: white;
+        }
+
+        .btn-success {
+            background: var(--success);
+            color: white;
+        }
+
+        .btn-warning {
+            background: var(--warning);
+            color: white;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        .user-badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin: 2px;
+        }
+
+        .badge-student { background: #e3f2fd; color: #1976d2; }
+        .badge-employee { background: #e8f5e8; color: #2e7d32; }
+        .badge-teacher { background: #fff3e0; color: #ef6c00; }
+        .badge-admin { background: #fce4ec; color: #c2185b; }
+
+        .actions {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: var(--shadow);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            font-size: 16px;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        .message {
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .message.success { background: rgba(40, 167, 69, 0.1); color: var(--success); border: 1px solid var(--success); }
+        .message.error { background: rgba(220, 53, 69, 0.1); color: var(--danger); border: 1px solid var(--danger); }
+        .message.info { background: rgba(23, 162, 184, 0.1); color: var(--info); border: 1px solid var(--info); }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1><i class="fas fa-chart-line"></i> لوحة تحكم المدير</h1>
+            <p>نظام الحضور الإلكتروني - مركز آسيا</p>
+        </div>
+
+        <div class="tabs">
+            <div class="tab active" onclick="showTab('stats')">الإحصائيات</div>
+            <div class="tab" onclick="showTab('attendance')">سجلات الحضور</div>
+            <div class="tab" onclick="showTab('users')">إدارة المستخدمين</div>
+        </div>
+
+        <div id="statsTab" class="tab-content active">
+            <div class="stats">
+                <div class="stat-card">
+                    <div class="number" id="totalUsers">0</div>
+                    <div class="label">إجمالي المستخدمين</div>
+                </div>
+                <div class="stat-card">
+                    <div class="number" id="totalRecords">0</div>
+                    <div class="label">إجمالي سجلات الحضور</div>
+                </div>
+                <div class="stat-card">
+                    <div class="number" id="todayRecords">0</div>
+                    <div class="label">حضور اليوم</div>
+                </div>
+                <div class="stat-card">
+                    <div class="number" id="activeUsers">0</div>
+                    <div class="label">المستخدمين النشطين</div>
+                </div>
+            </div>
+        </div>
+
+        <div id="attendanceTab" class="tab-content">
+            <div style="text-align: center; margin-bottom: 20px;">
+                <button class="btn btn-primary" onclick="loadAttendanceRecords()">
+                    <i class="fas fa-sync-alt"></i> تحديث السجلات
+                </button>
+            </div>
+            <div id="attendanceRecords"></div>
+        </div>
+
+        <div id="usersTab" class="tab-content">
+            <div style="text-align: center; margin-bottom: 20px;">
+                <button class="btn btn-success" onclick="showAddUserModal()">
+                    <i class="fas fa-user-plus"></i> إضافة مستخدم جديد
+                </button>
+                <button class="btn btn-primary" onclick="loadUsers()">
+                    <i class="fas fa-sync-alt"></i> تحديث القائمة
+                </button>
+            </div>
+            <div id="usersList"></div>
+        </div>
+    </div>
+
+    <div id="addUserModal" class="modal">
+        <div class="modal-content">
+            <h2 style="text-align: center; margin-bottom: 20px; color: var(--primary);">
+                <i class="fas fa-user-plus"></i> إضافة مستخدم جديد
+            </h2>
+            
+            <div class="form-group">
+                <label for="modalUsername">اسم المستخدم</label>
+                <input type="text" id="modalUsername" class="form-control" placeholder="اسم المستخدم">
+            </div>
+            
+            <div class="form-group">
+                <label for="modalPassword">كلمة المرور</label>
+                <input type="password" id="modalPassword" class="form-control" placeholder="كلمة المرور">
+            </div>
+            
+            <div class="form-group">
+                <label for="modalFullName">الاسم الكامل</label>
+                <input type="text" id="modalFullName" class="form-control" placeholder="الاسم الكامل">
+            </div>
+            
+            <div class="form-group">
+                <label for="modalRole">نوع المستخدم</label>
+                <select id="modalRole" class="form-control">
+                    <option value="طالب">طالب</option>
+                    <option value="طالبة">طالبة</option>
+                    <option value="موظف">موظف</option>
+                    <option value="معلم">معلم</option>
+                    <option value="إداري">إداري</option>
+                </select>
+            </div>
+            
+            <div style="display: flex; gap: 10px; margin-top: 25px;">
+                <button class="btn btn-success" onclick="addUser()" style="flex: 1;">
+                    <i class="fas fa-check"></i> إضافة
+                </button>
+                <button class="btn btn-danger" onclick="hideAddUserModal()" style="flex: 1;">
+                    <i class="fas fa-times"></i> إلغاء
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="messageContainer"></div>
+
+    <script>
+        function loadStats() {
+            fetch('/api/stats')
+                .then(response => response.json())
+                .then(stats => {
+                    document.getElementById('totalUsers').textContent = stats.totalUsers;
+                    document.getElementById('totalRecords').textContent = stats.totalRecords;
+                    document.getElementById('todayRecords').textContent = stats.todayRecords;
+                    document.getElementById('activeUsers').textContent = stats.uniqueUsers;
+                })
+                .catch(error => {
+                    console.error('Error loading stats:', error);
+                });
+        }
+
+        function loadAttendanceRecords() {
+            fetch('/api/records')
+                .then(response => response.json())
+                .then(records => {
+                    let html = '';
+                    
+                    if (records.length === 0) {
+                        html = '<div class="message info">لا توجد سجلات حضور حتى الآن</div>';
+                    } else {
+                        html = `
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>المستخدم</th>
+                                        <th>الاسم الكامل</th>
+                                        <th>الفترة</th>
+                                        <th>التاريخ</th>
+                                        <th>الوقت</th>
+                                        <th>الموقع</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                        `;
+                        
+                        records.reverse().forEach(record => {
+                            const [date, time] = record.timestamp.split('، ');
+                            html += `
+                                <tr>
+                                    <td><strong>${record.username}</strong></td>
+                                    <td>${record.fullName}</td>
+                                    <td>${record.period || 'حضور'}</td>
+                                    <td>${date}</td>
+                                    <td>${time}</td>
+                                    <td>${record.latitude ? `${record.latitude.toFixed(4)}, ${record.longitude.toFixed(4)}` : 'يدوي'}</td>
+                                </tr>
+                            `;
+                        });
+                        
+                        html += '</tbody></table>';
+                    }
+                    
+                    document.getElementById('attendanceRecords').innerHTML = html;
+                })
+                .catch(error => {
+                    document.getElementById('attendanceRecords').innerHTML = 
+                        '<div class="message error">خطأ في تحميل سجلات الحضور</div>';
+                });
+        }
+
+        function loadUsers() {
+            fetch('/api/users')
+                .then(response => response.json())
+                .then(users => {
+                    let html = '';
+                    
+                    if (users.length === 0) {
+                        html = '<div class="message info">لا يوجد مستخدمين مسجلين</div>';
+                    } else {
+                        html = `
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>اسم المستخدم</th>
+                                        <th>الاسم الكامل</th>
+                                        <th>نوع المستخدم</th>
+                                        <th>تاريخ الانضمام</th>
+                                        <th>الحالة</th>
+                                        <th>الإجراءات</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                        `;
+                        
+                        users.forEach(user => {
+                            const badgeClass = `user-badge badge-${getUserBadgeClass(user.role)}`;
+                            html += `
+                                <tr>
+                                    <td><strong>${user.username}</strong></td>
+                                    <td>${user.fullName || 'غير محدد'}</td>
+                                    <td><span class="${badgeClass}">${user.role}</span></td>
+                                    <td>${new Date(user.joinDate).toLocaleDateString('ar-SA')}</td>
+                                    <td>${user.isActive ? 'نشط' : 'غير نشط'}</td>
+                                    <td class="actions">
+                                        <button class="btn btn-danger" onclick="deleteUser('${user.username}')">
+                                            <i class="fas fa-trash"></i> حذف
+                                        </button>
+                                    </td>
+                                </tr>
+                            `;
+                        });
+                        
+                        html += '</tbody></table>';
+                    }
+                    
+                    document.getElementById('usersList').innerHTML = html;
+                })
+                .catch(error => {
+                    document.getElementById('usersList').innerHTML = 
+                        '<div class="message error">خطأ في تحميل قائمة المستخدمين</div>';
+                });
+        }
+
+        function getUserBadgeClass(role) {
+            const roles = {
+                'طالب': 'student',
+                'طالبة': 'student',
+                'موظف': 'employee',
+                'معلم': 'teacher',
+                'إداري': 'admin',
+                'مدير': 'admin'
+            };
+            return roles[role] || 'student';
+        }
+
+        function showTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            document.getElementById(tabName + 'Tab').classList.add('active');
+            event.target.classList.add('active');
+            
+            if (tabName === 'stats') loadStats();
+            else if (tabName === 'attendance') loadAttendanceRecords();
+            else if (tabName === 'users') loadUsers();
+        }
+
+        function showAddUserModal() {
+            document.getElementById('addUserModal').style.display = 'flex';
+        }
+
+        function hideAddUserModal() {
+            document.getElementById('addUserModal').style.display = 'none';
+        }
+
+        function addUser() {
+            const username = document.getElementById('modalUsername').value;
+            const password = document.getElementById('modalPassword').value;
+            const fullName = document.getElementById('modalFullName').value;
+            const role = document.getElementById('modalRole').value;
+
+            if (!username || !password || !fullName) {
+                showMessage('جميع الحقول مطلوبة', 'error');
+                return;
+            }
+
+            fetch('/api/register', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username, password, fullName, role })
+            })
+            .then(response => response.json())
+            .then(result => {
+                if (result.success) {
+                    showMessage(result.message, 'success');
+                    hideAddUserModal();
+                    loadUsers();
+                    loadStats();
+                    
+                    document.getElementById('modalUsername').value = '';
+                    document.getElementById('modalPassword').value = '';
+                    document.getElementById('modalFullName').value = '';
+                } else {
+                    showMessage(result.message, 'error');
+                }
+            })
+            .catch(error => {
+                showMessage('خطأ في إضافة المستخدم', 'error');
+            });
+        }
+
+        function deleteUser(username) {
+            if (confirm(`هل أنت متأكد من حذف المستخدم "${username}"؟`)) {
+                fetch(`/api/users/${username}`, {
+                    method: 'DELETE'
+                })
+                .then(response => response.json())
+                .then(result => {
+                    if (result.success) {
+                        showMessage(result.message, 'success');
+                        loadUsers();
+                        loadStats();
+                    } else {
+                        showMessage(result.message, 'error');
+                    }
+                })
+                .catch(error => {
+                    showMessage('خطأ في حذف المستخدم', 'error');
+                });
+            }
+        }
+
+        function showMessage(text, type) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${type}`;
+            messageDiv.textContent = text;
+            
+            document.getElementById('messageContainer').appendChild(messageDiv);
+            
+            setTimeout(() => {
+                messageDiv.remove();
+            }, 5000);
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            loadStats();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,489 @@
+{
+  "users": [
+    {
+      "username": "admin",
+      "password": "admin123",
+      "fullName": "مدير النظام",
+      "role": "مدير",
+      "joinDate": "2025-10-29T06:54:05.533Z",
+      "isActive": true
+    },
+    {
+      "username": "fatima",
+      "password": "111111",
+      "fullName": "فاطمة عبدالله",
+      "role": "طالبة",
+      "joinDate": "2025-10-29T06:54:05.535Z",
+      "isActive": true
+    },
+    {
+      "id": 1761720964147,
+      "username": "ام زياد",
+      "password": "123456",
+      "fullName": "ام زياد ام زياد",
+      "role": "موظف",
+      "joinDate": "2025-10-29T06:56:04.147Z",
+      "isActive": true
+    },
+    {
+      "id": 1761721060705,
+      "username": "ام عبدالرحمن",
+      "password": "1234567",
+      "fullName": "ام عبدالرحمن",
+      "role": "موظف",
+      "joinDate": "2025-10-29T06:57:40.705Z",
+      "isActive": true
+    },
+    {
+      "id": 1763048588652,
+      "username": "حسن ادم ابوبكر الشيخ",
+      "password": "mr99669966mr",
+      "fullName": "حسن ادم ابوبكر الشيخ",
+      "role": "موظف",
+      "joinDate": "2025-11-13T15:43:08.652Z",
+      "isActive": true
+    }
+  ],
+  "attendance": [
+    {
+      "id": 1761721010013,
+      "username": "ام زياد",
+      "fullName": "ام زياد ام زياد",
+      "latitude": 21.2603754,
+      "longitude": 40.3894214,
+      "period": "صباح",
+      "timestamp": "٢٩‏/١٠‏/٢٠٢٥، ٦:٥٦:٥٠ ص",
+      "date": "2025-10-29",
+      "time": "٦:٥٦:٥٠ ص"
+    },
+    {
+      "id": 1761721091846,
+      "username": "ام عبدالرحمن",
+      "fullName": "ام عبدالرحمن",
+      "latitude": 21.2605723,
+      "longitude": 40.3893734,
+      "period": "صباح",
+      "timestamp": "٢٩‏/١٠‏/٢٠٢٥، ٦:٥٨:١١ ص",
+      "date": "2025-10-29",
+      "time": "٦:٥٨:١١ ص"
+    },
+    {
+      "id": 1761721120244,
+      "username": "admin",
+      "fullName": "مدير النظام",
+      "latitude": 21.2602884,
+      "longitude": 40.3895074,
+      "period": "صباح",
+      "timestamp": "٢٩‏/١٠‏/٢٠٢٥، ٦:٥٨:٤٠ ص",
+      "date": "2025-10-29",
+      "time": "٦:٥٨:٤٠ ص"
+    },
+    {
+      "id": 1761721239314,
+      "username": "admin",
+      "fullName": "مدير النظام",
+      "latitude": 21.2602943,
+      "longitude": 40.3894841,
+      "period": "صباح",
+      "timestamp": "٢٩‏/١٠‏/٢٠٢٥، ٧:٠٠:٣٩ ص",
+      "date": "2025-10-29",
+      "time": "٧:٠٠:٣٩ ص"
+    },
+    {
+      "id": 1761721286183,
+      "username": "admin",
+      "fullName": "مدير النظام",
+      "latitude": 21.260531,
+      "longitude": 40.3892631,
+      "period": "مساء",
+      "timestamp": "٢٩‏/١٠‏/٢٠٢٥، ٧:٠١:٢٦ ص",
+      "date": "2025-10-29",
+      "time": "٧:٠١:٢٦ ص"
+    },
+    {
+      "id": 1761725933640,
+      "username": "admin",
+      "fullName": "مدير النظام",
+      "latitude": 21.2611752,
+      "longitude": 40.388771,
+      "period": "مساء",
+      "timestamp": "٢٩‏/١٠‏/٢٠٢٥، ٨:١٨:٥٣ ص",
+      "date": "2025-10-29",
+      "time": "٨:١٨:٥٣ ص"
+    },
+    {
+      "id": 1761728532056,
+      "username": "admin",
+      "fullName": "مدير النظام",
+      "latitude": 21.2603165,
+      "longitude": 40.3888286,
+      "period": "صباح",
+      "timestamp": "٢٩‏/١٠‏/٢٠٢٥، ٩:٠٢:١٢ ص",
+      "date": "2025-10-29",
+      "time": "٩:٠٢:١٢ ص"
+    },
+    {
+      "id": 1761730686959,
+      "username": "admin",
+      "fullName": "مدير النظام",
+      "latitude": 21.2609445,
+      "longitude": 40.3880982,
+      "period": "مساء",
+      "timestamp": "٢٩‏/١٠‏/٢٠٢٥، ٩:٣٨:٠٦ ص",
+      "date": "2025-10-29",
+      "time": "٩:٣٨:٠٦ ص"
+    },
+    {
+      "id": 1761730701126,
+      "username": "admin",
+      "fullName": "مدير النظام",
+      "latitude": 21.2604828,
+      "longitude": 40.3894368,
+      "period": "مساء",
+      "timestamp": "٢٩‏/١٠‏/٢٠٢٥، ٩:٣٨:٢١ ص",
+      "date": "2025-10-29",
+      "time": "٩:٣٨:٢١ ص"
+    },
+    {
+      "id": 1761730707187,
+      "username": "admin",
+      "fullName": "مدير النظام",
+      "latitude": 21.2603995,
+      "longitude": 40.3895155,
+      "period": "صباح",
+      "timestamp": "٢٩‏/١٠‏/٢٠٢٥، ٩:٣٨:٢٧ ص",
+      "date": "2025-10-29",
+      "time": "٩:٣٨:٢٧ ص"
+    },
+    {
+      "id": 1761739902921,
+      "username": "admin",
+      "fullName": "مدير النظام",
+      "latitude": 21.2604794,
+      "longitude": 40.389486,
+      "period": "مساء",
+      "timestamp": "٢٩‏/١٠‏/٢٠٢٥، ١٢:١١:٤٢ م",
+      "date": "2025-10-29",
+      "time": "١٢:١١:٤٢ م"
+    },
+    {
+      "id": 1761739940569,
+      "username": "admin",
+      "fullName": "مدير النظام",
+      "latitude": 21.2604794,
+      "longitude": 40.3894902,
+      "period": "مساء",
+      "timestamp": "٢٩‏/١٠‏/٢٠٢٥، ١٢:١٢:٢٠ م",
+      "date": "2025-10-29",
+      "time": "١٢:١٢:٢٠ م"
+    },
+    {
+      "id": 1761739952059,
+      "username": "admin",
+      "fullName": "مدير النظام",
+      "latitude": 21.2604794,
+      "longitude": 40.3894902,
+      "period": "صباح",
+      "timestamp": "٢٩‏/١٠‏/٢٠٢٥، ١٢:١٢:٣٢ م",
+      "date": "2025-10-29",
+      "time": "١٢:١٢:٣٢ م"
+    },
+    {
+      "id": 1761747139056,
+      "username": "admin",
+      "fullName": "مدير النظام",
+      "latitude": 21.2607881,
+      "longitude": 40.3895063,
+      "period": "مساء",
+      "timestamp": "٢٩‏/١٠‏/٢٠٢٥، ٢:١٢:١٩ م",
+      "date": "2025-10-29",
+      "time": "٢:١٢:١٩ م"
+    },
+    {
+      "id": 1761747157034,
+      "username": "admin",
+      "fullName": "مدير النظام",
+      "latitude": 21.2607681,
+      "longitude": 40.3893931,
+      "period": "صباح",
+      "timestamp": "٢٩‏/١٠‏/٢٠٢٥، ٢:١٢:٣٧ م",
+      "date": "2025-10-29",
+      "time": "٢:١٢:٣٧ م"
+    },
+    {
+      "id": 1761798764107,
+      "username": "admin",
+      "fullName": "مدير النظام",
+      "latitude": 21.2606794,
+      "longitude": 40.3891607,
+      "period": "صباح",
+      "timestamp": "٣٠‏/١٠‏/٢٠٢٥، ٤:٣٢:٤٤ ص",
+      "date": "2025-10-30",
+      "time": "٤:٣٢:٤٤ ص"
+    },
+    {
+      "id": 1761800539585,
+      "username": "admin",
+      "fullName": "مدير النظام",
+      "latitude": 21.2604903,
+      "longitude": 40.3894761,
+      "period": "صباح",
+      "timestamp": "٣٠‏/١٠‏/٢٠٢٥، ٥:٠٢:١٩ ص",
+      "date": "2025-10-30",
+      "time": "٥:٠٢:١٩ ص"
+    },
+    {
+      "id": 1761801152985,
+      "username": "admin",
+      "fullName": "مدير النظام",
+      "latitude": 21.2605522,
+      "longitude": 40.3895128,
+      "period": "مساء",
+      "timestamp": "٣٠‏/١٠‏/٢٠٢٥، ٥:١٢:٣٢ ص",
+      "date": "2025-10-30",
+      "time": "٥:١٢:٣٢ ص"
+    },
+    {
+      "id": 1761801163890,
+      "username": "admin",
+      "fullName": "مدير النظام",
+      "latitude": 21.2605522,
+      "longitude": 40.3895128,
+      "period": "صباح",
+      "timestamp": "٣٠‏/١٠‏/٢٠٢٥، ٥:١٢:٤٣ ص",
+      "date": "2025-10-30",
+      "time": "٥:١٢:٤٣ ص"
+    },
+    {
+      "id": 1761801524941,
+      "username": "admin",
+      "fullName": "مدير النظام",
+      "latitude": 21.2605665,
+      "longitude": 40.3893513,
+      "period": "مساء",
+      "timestamp": "٣٠‏/١٠‏/٢٠٢٥، ٥:١٨:٤٤ ص",
+      "date": "2025-10-30",
+      "time": "٥:١٨:٤٤ ص"
+    },
+    {
+      "id": 1761801530537,
+      "username": "admin",
+      "fullName": "مدير النظام",
+      "latitude": 21.2605665,
+      "longitude": 40.3893513,
+      "period": "صباح",
+      "timestamp": "٣٠‏/١٠‏/٢٠٢٥، ٥:١٨:٥٠ ص",
+      "date": "2025-10-30",
+      "time": "٥:١٨:٥٠ ص"
+    },
+    {
+      "id": 1761801932217,
+      "username": "admin",
+      "fullName": "مدير النظام",
+      "latitude": 21.2605226,
+      "longitude": 40.3894529,
+      "period": "مساء",
+      "timestamp": "٣٠‏/١٠‏/٢٠٢٥، ٥:٢٥:٣٢ ص",
+      "date": "2025-10-30",
+      "time": "٥:٢٥:٣٢ ص"
+    },
+    {
+      "id": 1761801947417,
+      "username": "admin",
+      "fullName": "مدير النظام",
+      "latitude": 21.2605291,
+      "longitude": 40.3894604,
+      "period": "صباح",
+      "timestamp": "٣٠‏/١٠‏/٢٠٢٥، ٥:٢٥:٤٧ ص",
+      "date": "2025-10-30",
+      "time": "٥:٢٥:٤٧ ص"
+    },
+    {
+      "id": 1761823039461,
+      "username": "admin",
+      "fullName": "مدير النظام",
+      "latitude": 21.2791335,
+      "longitude": 40.4216341,
+      "period": "مساء",
+      "timestamp": "٣٠‏/١٠‏/٢٠٢٥، ١١:١٧:١٩ ص",
+      "date": "2025-10-30",
+      "time": "١١:١٧:١٩ ص"
+    },
+    {
+      "id": 1761823047719,
+      "username": "admin",
+      "fullName": "مدير النظام",
+      "latitude": 21.2790256,
+      "longitude": 40.4215442,
+      "period": "صباح",
+      "timestamp": "٣٠‏/١٠‏/٢٠٢٥، ١١:١٧:٢٧ ص",
+      "date": "2025-10-30",
+      "time": "١١:١٧:٢٧ ص"
+    },
+    {
+      "id": 1761943679283,
+      "username": "admin",
+      "fullName": "مدير النظام",
+      "latitude": 21.2791828,
+      "longitude": 40.4216775,
+      "period": "مساء",
+      "timestamp": "٣١‏/١٠‏/٢٠٢٥، ٨:٤٧:٥٩ م",
+      "date": "2025-10-31",
+      "time": "٨:٤٧:٥٩ م"
+    },
+    {
+      "id": 1761943753675,
+      "username": "admin",
+      "fullName": "مدير النظام",
+      "latitude": 21.2791862,
+      "longitude": 40.4216771,
+      "period": "صباح",
+      "timestamp": "٣١‏/١٠‏/٢٠٢٥، ٨:٤٩:١٣ م",
+      "date": "2025-10-31",
+      "time": "٨:٤٩:١٣ م"
+    },
+    {
+      "id": 1761943818832,
+      "username": "admin",
+      "fullName": "مدير النظام",
+      "latitude": 21.2790977,
+      "longitude": 40.4215112,
+      "period": "مساء",
+      "timestamp": "٣١‏/١٠‏/٢٠٢٥، ٨:٥٠:١٨ م",
+      "date": "2025-10-31",
+      "time": "٨:٥٠:١٨ م"
+    },
+    {
+      "id": 1761947462776,
+      "username": "admin",
+      "fullName": "مدير النظام",
+      "latitude": 21.280251,
+      "longitude": 40.4233135,
+      "period": "مساء",
+      "timestamp": "٣١‏/١٠‏/٢٠٢٥، ٩:٥١:٠٢ م",
+      "date": "2025-10-31",
+      "time": "٩:٥١:٠٢ م"
+    },
+    {
+      "id": 1761947475830,
+      "username": "admin",
+      "fullName": "مدير النظام",
+      "latitude": 21.2802491,
+      "longitude": 40.4233151,
+      "period": "صباح",
+      "timestamp": "٣١‏/١٠‏/٢٠٢٥، ٩:٥١:١٥ م",
+      "date": "2025-10-31",
+      "time": "٩:٥١:١٥ م"
+    },
+    {
+      "id": 1762242586692,
+      "username": "admin",
+      "fullName": "مدير النظام",
+      "latitude": 21.2603977,
+      "longitude": 40.3894889,
+      "period": "مساء",
+      "timestamp": "٤‏/١١‏/٢٠٢٥، ٧:٤٩:٤٦ ص",
+      "date": "2025-11-04",
+      "time": "٧:٤٩:٤٦ ص"
+    },
+    {
+      "id": 1762242601666,
+      "username": "admin",
+      "fullName": "مدير النظام",
+      "latitude": 21.2604192,
+      "longitude": 40.3895111,
+      "period": "صباح",
+      "timestamp": "٤‏/١١‏/٢٠٢٥، ٧:٥٠:٠١ ص",
+      "date": "2025-11-04",
+      "time": "٧:٥٠:٠١ ص"
+    },
+    {
+      "id": 1762438137035,
+      "username": "admin",
+      "fullName": "مدير النظام",
+      "latitude": 21.280257,
+      "longitude": 40.423311,
+      "period": "مساء",
+      "timestamp": "٦‏/١١‏/٢٠٢٥، ٢:٠٨:٥٧ م",
+      "date": "2025-11-06",
+      "time": "٢:٠٨:٥٧ م"
+    },
+    {
+      "id": 1762438172074,
+      "username": "admin",
+      "fullName": "مدير النظام",
+      "latitude": 21.280257,
+      "longitude": 40.423311,
+      "period": "صباح",
+      "timestamp": "٦‏/١١‏/٢٠٢٥، ٢:٠٩:٣٢ م",
+      "date": "2025-11-06",
+      "time": "٢:٠٩:٣٢ م"
+    },
+    {
+      "id": 1762441914119,
+      "username": "admin",
+      "fullName": "مدير النظام",
+      "latitude": 21.2802486,
+      "longitude": 40.4233156,
+      "period": "مساء",
+      "timestamp": "٦‏/١١‏/٢٠٢٥، ٣:١١:٥٤ م",
+      "date": "2025-11-06",
+      "time": "٣:١١:٥٤ م"
+    },
+    {
+      "id": 1762441924493,
+      "username": "admin",
+      "fullName": "مدير النظام",
+      "latitude": 21.2802464,
+      "longitude": 40.42332,
+      "period": "صباح",
+      "timestamp": "٦‏/١١‏/٢٠٢٥، ٣:١٢:٠٤ م",
+      "date": "2025-11-06",
+      "time": "٣:١٢:٠٤ م"
+    },
+    {
+      "id": 1762556573673,
+      "username": "admin",
+      "fullName": "مدير النظام",
+      "latitude": 21.280257,
+      "longitude": 40.423311,
+      "period": "مساء",
+      "timestamp": "٧‏/١١‏/٢٠٢٥، ١١:٠٢:٥٣ م",
+      "date": "2025-11-07",
+      "time": "١١:٠٢:٥٣ م"
+    },
+    {
+      "id": 1763042131605,
+      "username": "admin",
+      "fullName": "مدير النظام",
+      "latitude": 21.280257,
+      "longitude": 40.423311,
+      "period": "مساء",
+      "timestamp": "١٣‏/١١‏/٢٠٢٥، ١:٥٥:٣١ م",
+      "date": "2025-11-13",
+      "time": "١:٥٥:٣١ م"
+    },
+    {
+      "id": 1763048640982,
+      "username": "حسن ادم ابوبكر الشيخ",
+      "fullName": "حسن ادم ابوبكر الشيخ",
+      "latitude": 21.2790456859005,
+      "longitude": 40.42154006727416,
+      "period": "مساء",
+      "timestamp": "١٣‏/١١‏/٢٠٢٥، ٣:٤٤:٠٠ م",
+      "date": "2025-11-13",
+      "time": "٣:٤٤:٠١ م"
+    },
+    {
+      "id": 1763048836480,
+      "username": "admin",
+      "fullName": "مدير النظام",
+      "latitude": 21.2791814,
+      "longitude": 40.4215413,
+      "period": "صباح",
+      "timestamp": "١٣‏/١١‏/٢٠٢٥، ٣:٤٧:١٦ م",
+      "date": "2025-11-13",
+      "time": "٣:٤٧:١٦ م"
+    }
+  ]
+}

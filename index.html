@@ -1,0 +1,2051 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نظام الحضور المتقدم - جمعية تحفيظ القرآن الطائف</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #8B0000;
+            --secondary: #660000;
+            --accent: #A52A2A;
+            --light: #FFF5F5;
+            --dark: #660000;
+            --text: #8B0000;
+            --shadow: 0 4px 15px rgba(139, 0, 0, 0.2);
+            --gold: #D4AF37;
+            --background: white;
+            --card-bg: white;
+            --text-primary: #333;
+            --text-secondary: #666;
+            --border: #E0E0E0;
+            --success: #28a745;
+            --warning: #ffc107;
+            --info: #17a2b8;
+            --danger: #dc3545;
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+            --chat-primary: #8B0000;
+            --chat-secondary: #1E90FF;
+        }
+
+        [data-theme="dark"] {
+            --primary: #C62828;
+            --secondary: #8B0000;
+            --accent: #E53935;
+            --light: #1A1A1A;
+            --dark: #121212;
+            --text: #E0E0E0;
+            --shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            --gold: #FFD700;
+            --background: #121212;
+            --card-bg: #1E1E1E;
+            --text-primary: #E0E0E0;
+            --text-secondary: #B0B0B0;
+            --border: #333;
+            --success: #4CAF50;
+            --warning: #FFB300;
+            --info: #29B6F6;
+            --danger: #F44336;
+            --chat-primary: #C62828;
+            --chat-secondary: #42A5F5;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: var(--transition);
+        }
+
+        body {
+            font-family: 'Cairo', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--background);
+            min-height: 100vh;
+            padding: 20px;
+            color: var(--text-primary);
+        }
+
+        .container {
+            max-width: 450px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            border-radius: 25px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            border: 1px solid var(--border);
+            position: relative;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 25px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: "";
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            font-size: 4rem;
+            opacity: 0.08;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(-50%, -50%) rotate(0deg); }
+            50% { transform: translate(-50%, -50%) rotate(5deg); }
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .logo {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 3px solid var(--gold);
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .logo-text {
+            text-align: right;
+        }
+
+        .logo-text h1 {
+            font-size: 1.3rem;
+            margin-bottom: 5px;
+            font-weight: 700;
+            color: white;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .logo-text .subtitle {
+            font-size: 0.9rem;
+            opacity: 0.95;
+            color: #FFD700;
+            font-weight: 600;
+        }
+
+        .header .license {
+            font-size: 0.75rem;
+            opacity: 0.9;
+            margin-top: 10px;
+            color: #FFEBCD;
+            position: relative;
+            z-index: 2;
+        }
+
+        .content {
+            padding: 25px;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 25px;
+            color: var(--primary);
+            font-size: 1.4rem;
+            font-weight: 700;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            margin: 10px auto;
+            border-radius: 2px;
+            animation: widthGrow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes widthGrow {
+            0% { width: 60px; }
+            100% { width: 100px; }
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 16px 20px;
+            border: 2px solid var(--border);
+            border-radius: 15px;
+            font-size: 16px;
+            transition: var(--transition);
+            background: var(--card-bg);
+            color: var(--text-primary);
+            font-family: 'Cairo', sans-serif;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--accent);
+            background: var(--background);
+            box-shadow: 0 0 0 4px rgba(139, 0, 0, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .btn {
+            width: 100%;
+            padding: 16px;
+            border: none;
+            border-radius: 15px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            font-family: 'Cairo', sans-serif;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(139, 0, 0, 0.4);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, var(--success) 0%, #1e7e34 100%);
+            color: white;
+        }
+
+        .btn-warning {
+            background: linear-gradient(135deg, var(--warning) 0%, #e0a800 100%);
+            color: white;
+        }
+
+        .btn-info {
+            background: linear-gradient(135deg, var(--info) 0%, #138496 100%);
+            color: white;
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, var(--danger) 0%, #c82333 100%);
+            color: white;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .attendance-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin: 25px 0;
+        }
+
+        .attendance-card {
+            background: var(--card-bg);
+            border: 2px solid var(--border);
+            border-radius: 20px;
+            padding: 25px 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .attendance-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .attendance-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .attendance-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 12px 30px rgba(139, 0, 0, 0.25);
+            border-color: var(--accent);
+        }
+
+        .attendance-card.active {
+            border-color: var(--accent);
+            background: linear-gradient(135deg, var(--card-bg) 0%, rgba(139, 0, 0, 0.05) 100%);
+        }
+
+        .attendance-card i {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            transition: var(--transition);
+        }
+
+        .attendance-card .time {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+
+        .attendance-card .period {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            color: var(--text-secondary);
+            font-weight: 600;
+        }
+
+        .message {
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+            text-align: center;
+            font-weight: 600;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .message.success {
+            background: rgba(40, 167, 69, 0.1);
+            border: 2px solid var(--success);
+            color: var(--success);
+        }
+
+        .message.error {
+            background: rgba(220, 53, 69, 0.1);
+            border: 2px solid var(--danger);
+            color: var(--danger);
+        }
+
+        .message.info {
+            background: rgba(23, 162, 184, 0.1);
+            border: 2px solid var(--info);
+            color: var(--info);
+        }
+
+        .user-info {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 25px;
+            margin: 20px 0;
+            text-align: center;
+            border: 2px solid var(--border);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .user-info::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent 0%, rgba(139, 0, 0, 0.03) 100%);
+            z-index: 1;
+        }
+
+        .user-info h3 {
+            color: var(--primary);
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .user-info p {
+            color: var(--text-secondary);
+            position: relative;
+            z-index: 2;
+        }
+
+        .admin-panel {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 25px;
+            margin-top: 25px;
+            border: 2px solid var(--border);
+        }
+
+        .manual-location {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin: 15px 0;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .stat-card {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(139, 0, 0, 0.1);
+            border: 1px solid var(--border);
+            transition: var(--transition);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(139, 0, 0, 0.15);
+        }
+
+        .stat-card .number {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+
+        .stat-card .label {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            font-weight: 600;
+        }
+
+        .welcome-message {
+            text-align: center;
+            padding: 25px;
+            background: var(--card-bg);
+            border-radius: 20px;
+            margin: 20px 0;
+            border: 2px solid var(--border);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .welcome-message::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(139, 0, 0, 0.05) 0%, transparent 70%);
+            animation: rotate 10s linear infinite;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .welcome-message h2 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .welcome-message p {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            position: relative;
+            z-index: 2;
+            margin-bottom: 10px;
+        }
+
+        .center-name {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 18px;
+            border-radius: 15px;
+            margin: 15px 0;
+            text-align: center;
+            font-weight: 700;
+            border: 2px solid var(--gold);
+            position: relative;
+            z-index: 2;
+            font-size: 1.1rem;
+        }
+
+        .digital-clock {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 20px;
+            text-align: center;
+            margin: 20px 0;
+            font-family: 'Cairo', monospace;
+            box-shadow: 0 8px 25px rgba(139, 0, 0, 0.3);
+            border: 2px solid var(--gold);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .digital-clock::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .time-display {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            direction: ltr;
+            display: inline-block;
+        }
+
+        .date-display {
+            font-size: 1.1rem;
+            font-weight: 600;
+            opacity: 0.9;
+            text-shadow: 0 1px 5px rgba(0,0,0,0.3);
+        }
+
+        .calendar-container {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 20px;
+            margin: 20px 0;
+            border: 2px solid var(--border);
+            text-align: center;
+        }
+
+        .calendar-title {
+            color: var(--primary);
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .calendar-item {
+            background: var(--background);
+            padding: 15px;
+            border-radius: 15px;
+            border: 1px solid var(--border);
+        }
+
+        .calendar-item .type {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .calendar-item .date {
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        .theme-toggle {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: white;
+            font-size: 1.3rem;
+            transition: var(--transition);
+            z-index: 10;
+            backdrop-filter: blur(10px);
+        }
+
+        .theme-toggle:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.1) rotate(15deg);
+        }
+
+        .user-menu {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+            z-index: 10;
+        }
+
+        .user-menu button {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: white;
+            font-size: 1.2rem;
+            transition: var(--transition);
+            backdrop-filter: blur(10px);
+        }
+
+        .user-menu button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.1);
+        }
+
+        .settings-panel {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 25px;
+            margin-top: 25px;
+            border: 2px solid var(--border);
+            animation: slideUp 0.5s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .settings-option {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 0;
+            border-bottom: 1px solid var(--border);
+            transition: var(--transition);
+        }
+
+        .settings-option:hover {
+            background: rgba(139, 0, 0, 0.03);
+            padding-right: 10px;
+            padding-left: 10px;
+            border-radius: 10px;
+        }
+
+        .settings-option:last-child {
+            border-bottom: none;
+        }
+
+        .settings-option label {
+            font-weight: 600;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: var(--primary);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+
+        .loader {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .theme-indicator {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--primary);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 25px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            z-index: 1000;
+            animation: fadeInOut 3s ease-in-out;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        @keyframes fadeInOut {
+            0%, 100% { opacity: 0; transform: translateY(-20px); }
+            10%, 90% { opacity: 1; transform: translateY(0); }
+        }
+
+        /* رسالة الترحيب المنبثقة */
+        .welcome-popup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .popup-content {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 400px;
+            margin: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 2px solid var(--gold);
+            animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .popup-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--gold);
+        }
+
+        .popup-content p {
+            line-height: 1.6;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .popup-footer {
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.3);
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes popIn {
+            from { 
+                opacity: 0;
+                transform: scale(0.8) translateY(-20px);
+            }
+            to { 
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        @keyframes fadeOut {
+            from { 
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+            to { 
+                opacity: 0;
+                transform: scale(0.8) translateY(-20px);
+            }
+        }
+
+        .welcome-popup.fade-out {
+            animation: fadeOut 0.5s ease forwards;
+        }
+
+        /* شريط التواصل العائم */
+        .contact-float {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            z-index: 1000;
+        }
+
+        .contact-btn {
+            background: linear-gradient(135deg, var(--chat-primary) 0%, var(--chat-secondary) 100%);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 15px 25px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: var(--transition);
+            animation: pulse 2s infinite;
+        }
+
+        .contact-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+        }
+
+        /* نافذة الدردشة */
+        .chat-container {
+            position: fixed;
+            bottom: 80px;
+            left: 20px;
+            width: 350px;
+            height: 500px;
+            background: var(--card-bg);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+            z-index: 1001;
+            overflow: hidden;
+            border: 2px solid var(--border);
+            animation: slideUp 0.3s ease-out;
+        }
+
+        .chat-header {
+            background: linear-gradient(135deg, var(--chat-primary) 0%, var(--chat-secondary) 100%);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .chat-header h3 {
+            font-size: 1.2rem;
+            margin: 0;
+        }
+
+        .close-chat {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .message-bubble {
+            max-width: 80%;
+            padding: 12px 15px;
+            border-radius: 18px;
+            font-size: 0.9rem;
+            line-height: 1.4;
+            position: relative;
+        }
+
+        .received {
+            align-self: flex-start;
+            background: var(--border);
+            color: var(--text-primary);
+            border-bottom-right-radius: 5px;
+        }
+
+        .sent {
+            align-self: flex-end;
+            background: linear-gradient(135deg, var(--chat-primary) 0%, var(--chat-secondary) 100%);
+            color: white;
+            border-bottom-left-radius: 5px;
+        }
+
+        .message-time {
+            font-size: 0.7rem;
+            opacity: 0.7;
+            margin-top: 5px;
+            text-align: right;
+        }
+
+        .chat-input-container {
+            padding: 15px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            gap: 10px;
+        }
+
+        .chat-input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 1px solid var(--border);
+            border-radius: 25px;
+            background: var(--background);
+            color: var(--text-primary);
+            font-family: 'Cairo', sans-serif;
+        }
+
+        .chat-input:focus {
+            outline: none;
+            border-color: var(--chat-primary);
+        }
+
+        .send-btn {
+            background: linear-gradient(135deg, var(--chat-primary) 0%, var(--chat-secondary) 100%);
+            border: none;
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .send-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .media-buttons {
+            display: flex;
+            gap: 10px;
+            padding: 10px 15px;
+            border-top: 1px solid var(--border);
+        }
+
+        .media-btn {
+            flex: 1;
+            background: var(--background);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 10px;
+            color: var(--text-primary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: var(--transition);
+        }
+
+        .media-btn:hover {
+            background: var(--chat-primary);
+            color: white;
+        }
+
+        .whatsapp-btn {
+            background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+            color: white;
+            border: none;
+        }
+
+        .whatsapp-btn:hover {
+            background: linear-gradient(135deg, #128C7E 0%, #075E54 100%);
+        }
+
+        .media-preview {
+            max-width: 200px;
+            max-height: 150px;
+            border-radius: 10px;
+            margin-top: 5px;
+        }
+
+        .audio-player {
+            width: 100%;
+            margin-top: 5px;
+        }
+
+        .video-player {
+            width: 100%;
+            max-height: 150px;
+            border-radius: 10px;
+            margin-top: 5px;
+        }
+
+        .contact-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .contact-card {
+            background: var(--card-bg);
+            border: 2px solid var(--border);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .contact-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            border-color: var(--chat-primary);
+        }
+
+        .contact-card i {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: var(--chat-primary);
+        }
+
+        .contact-card h4 {
+            margin-bottom: 5px;
+            color: var(--text-primary);
+        }
+
+        .contact-card p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+    </style>
+</head>
+<body>
+    <!-- رسالة الترحيب المنبثقة -->
+    <div id="welcomePopup" class="welcome-popup">
+        <div class="popup-content">
+            <h3><i class="fas fa-code"></i> نظام الحضور المتقدم</h3>
+            <p>هذا الموقع من <strong>برمجة وتصميم حسن آدم أبوبكر الشيخ</strong></p>
+            <p>بإشراف مؤقت ضمن مرحلة المعاينة التجريبية</p>
+            <div class="popup-footer">
+                <i class="fas fa-clock"></i> هذه الرسالة ستختفي تلقائياً خلال <span id="countdown">5</span> ثوانٍ
+            </div>
+        </div>
+    </div>
+
+    <!-- شريط التواصل العائم -->
+    <div class="contact-float">
+        <button class="contact-btn" id="contactBtn">
+            <i class="fas fa-comments"></i> تواصل معنا
+        </button>
+    </div>
+
+    <!-- نافذة الدردشة -->
+    <div id="chatContainer" class="chat-container hidden">
+        <div class="chat-header">
+            <button class="close-chat" id="closeChat">
+                <i class="fas fa-times"></i>
+            </button>
+            <h3><i class="fas fa-headset"></i> الدعم الفني المباشر</h3>
+        </div>
+        <div class="chat-messages" id="chatMessages">
+            <div class="message-bubble received">
+                <div><strong>مرحباً بك! 🌟</strong></div>
+                <div class="message-time" id="welcomeTime"></div>
+            </div>
+            <div class="message-bubble received">
+                <div>نحن <strong>فريق الدعم الفني المباشر</strong>، نرحب بك في النظام التجريبي للمعاينة</div>
+            </div>
+            <div class="message-bubble received">
+                <div>هذا النظام تم إنشاؤه بشكل <strong>مؤقت لأغراض المعاينة والتجربة</strong> تحت إشراف:</div>
+            </div>
+            <div class="message-bubble received" style="background: linear-gradient(135deg, #8B0000, #660000); color: white; border: 1px solid #D4AF37;">
+                <div style="text-align: center;">
+                    <strong><i class="fas fa-code"></i> م. حسن آدم أبو بكر الشيخ</strong><br>
+                    <small>مبرمج ومطور النظام</small>
+                </div>
+            </div>
+            <div class="message-bubble received">
+                <div>نحن هنا لمساعدتك في أي استفسار أو مشكلة تواجهك خلال فترة التجربة</div>
+            </div>
+            <div class="message-bubble received">
+                <div>كيف يمكنني مساعدتك اليوم؟ 😊</div>
+            </div>
+        </div>
+        <div class="media-buttons">
+            <button class="media-btn" id="imageBtn">
+                <i class="fas fa-image"></i> صورة
+            </button>
+            <button class="media-btn" id="audioBtn">
+                <i class="fas fa-microphone"></i> صوت
+            </button>
+            <button class="media-btn" id="videoBtn">
+                <i class="fas fa-video"></i> فيديو
+            </button>
+            <button class="media-btn whatsapp-btn" id="whatsappBtn">
+                <i class="fab fa-whatsapp"></i> واتساب
+            </button>
+        </div>
+        <div class="chat-input-container">
+            <input type="text" class="chat-input" id="chatInput" placeholder="اكتب رسالتك هنا...">
+            <button class="send-btn" id="sendBtn">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <button class="theme-toggle" id="themeToggle" title="تبديل الوضع">
+                <i class="fas fa-moon"></i>
+            </button>
+            
+            <div class="user-menu" id="userMenu">
+                <button id="settingsBtn" title="الإعدادات">
+                    <i class="fas fa-cog"></i>
+                </button>
+                <button id="logoutBtn" title="تسجيل الخروج">
+                    <i class="fas fa-sign-out-alt"></i>
+                </button>
+            </div>
+            
+            <div class="logo-container">
+                <img src="https://i.ibb.co/pj7s34kD/cropped-logo-m-sqwer-3.png" alt="شعار الجمعية" class="logo">
+                <div class="logo-text">
+                    <h1>الجمعية الخيرية لتحفيظ القرآن الكريم</h1>
+                    <div class="subtitle">مـحـافـظـة الـطـائـف</div>
+                </div>
+            </div>
+            <div class="license">مرخصة برقم ٣١٥٨ - تحت إشراف المركز الوطني لتنمية القطاع غير الربحي</div>
+
+            <div class="center-name">
+                <i class="fas fa-map-marker-alt"></i>
+                سجلات حضور مركز آسيا
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="digital-clock">
+                <div class="time-display" id="digitalTime">--:--:--</div>
+                <div class="date-display" id="digitalDate">--/--/----</div>
+            </div>
+
+            <!-- شاشة تسجيل الدخول -->
+            <div id="loginSection">
+                <div class="welcome-message">
+                    <h2><i class="fas fa-mosque"></i> مرحباً بك</h2>
+                    <p>نظام الحضور الإلكتروني المتقدم للعاملين والدارسين</p>
+                    <p>نسعى لخدمة كتاب الله تعالى</p>
+                    <div class="calendar-container">
+                        <div class="calendar-grid">
+                            <div class="calendar-item">
+                                <div class="type">التاريخ الهجري</div>
+                                <div class="date" id="hijriDate">--/--/----</div>
+                            </div>
+                            <div class="calendar-item">
+                                <div class="type">التاريخ الميلادي</div>
+                                <div class="date" id="gregorianDate">--/--/----</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-title">تسجيل الدخول</div>
+
+                <div class="form-group">
+                    <label for="username"><i class="fas fa-user"></i> اسم المستخدم</label>
+                    <input type="text" id="username" class="form-control" placeholder="أدخل اسم المستخدم" autocomplete="username">
+                </div>
+
+                <div class="form-group">
+                    <label for="password"><i class="fas fa-lock"></i> كلمة المرور</label>
+                    <input type="password" id="password" class="form-control" placeholder="أدخل كلمة المرور" autocomplete="current-password">
+                </div>
+
+                <button class="btn btn-primary" onclick="login()" id="loginBtn">
+                    <i class="fas fa-sign-in-alt"></i> تسجيل الدخول
+                </button>
+
+                <!-- زر مستخدم جديد - تأكد من وجوده هنا -->
+                <button class="btn btn-outline" onclick="showRegister()" style="margin-top: 15px;">
+                    <i class="fas fa-user-plus"></i> مستخدم جديد
+                </button>
+            </div>
+
+            <!-- شاشة تسجيل مستخدم جديد -->
+            <div id="registerSection" class="hidden">
+                <div class="welcome-message">
+                    <h2><i class="fas fa-user-plus"></i> إنشاء حساب جديد</h2>
+                    <p>انضم إلى نظام الحضور الإلكتروني للعاملين والدارسين</p>
+                </div>
+
+                <div class="section-title">تسجيل مستخدم جديد</div>
+
+                <div class="form-group">
+                    <label for="newUsername"><i class="fas fa-user"></i> اسم المستخدم</label>
+                    <input type="text" id="newUsername" class="form-control" placeholder="اختر اسم مستخدم فريد" autocomplete="username">
+                </div>
+
+                <div class="form-group">
+                    <label for="newPassword"><i class="fas fa-lock"></i> كلمة المرور</label>
+                    <input type="password" id="newPassword" class="form-control" placeholder="أدخل كلمة مرور قوية" autocomplete="new-password">
+                </div>
+
+                <div class="form-group">
+                    <label for="confirmPassword"><i class="fas fa-lock"></i> تأكيد كلمة المرور</label>
+                    <input type="password" id="confirmPassword" class="form-control" placeholder="أعد إدخال كلمة المرور" autocomplete="new-password">
+                </div>
+
+                <div class="form-group">
+                    <label for="fullName"><i class="fas fa-id-card"></i> الاسم الكامل</label>
+                    <input type="text" id="fullName" class="form-control" placeholder="أدخل الاسم الكامل ثلاثي">
+                </div>
+
+                <div class="form-group">
+                    <label for="userRole"><i class="fas fa-user-tag"></i> نوع المستخدم</label>
+                    <select id="userRole" class="form-control">
+                        <option value="طالب">طالب</option>
+                        <option value="طالبة">طالبة</option>
+                        <option value="موظف">موظف</option>
+                        <option value="معلم">معلم</option>
+                        <option value="إداري">إداري</option>
+                    </select>
+                </div>
+
+                <button class="btn btn-success" onclick="register()" id="registerBtn">
+                    <i class="fas fa-user-plus"></i> إنشاء الحساب
+                </button>
+
+                <button class="btn btn-outline" onclick="showLogin()" style="margin-top: 15px;">
+                    <i class="fas fa-arrow-right"></i> العودة لتسجيل الدخول
+                </button>
+            </div>
+
+            <!-- شاشة الرئيسية -->
+            <div id="mainSection" class="hidden">
+                <div class="user-info">
+                    <h3><i class="fas fa-user-circle"></i> مرحباً, <span id="userName"></span></h3>
+                    <p>مركز آسيا - نظام الحضور الإلكتروني المتقدم</p>
+                </div>
+
+                <div class="section-title">تسجيل الحضور</div>
+
+                <div class="attendance-options">
+                    <div class="attendance-card" id="morningCard" onclick="recordAttendance('صباح')">
+                        <i class="fas fa-sun" style="color: #FFD700;"></i>
+                        <div class="time">الحضور الصباحي</div>
+                        <div class="period">٦:٠٠ ص - ١٢:٠٠ م</div>
+                    </div>
+                    <div class="attendance-card" id="eveningCard" onclick="recordAttendance('مساء')">
+                        <i class="fas fa-moon" style="color: #8B4513;"></i>
+                        <div class="time">الحضور المسائي</div>
+                        <div class="period">٤:٠٠ م - ٩:٠٠ م</div>
+                    </div>
+                </div>
+
+                <div id="message"></div>
+
+                <div class="calendar-container">
+                    <div class="calendar-title"><i class="fas fa-calendar-alt"></i> التقويم</div>
+                    <div class="calendar-grid">
+                        <div class="calendar-item">
+                            <div class="type">هجري</div>
+                            <div class="date" id="mainHijriDate">--/--/----</div>
+                        </div>
+                        <div class="calendar-item">
+                            <div class="type">ميلادي</div>
+                            <div class="date" id="mainGregorianDate">--/--/----</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="admin-panel" id="adminPanel">
+                    <div class="section-title">لوحة التحكم المتقدمة</div>
+
+                    <div class="stats">
+                        <div class="stat-card">
+                            <div class="number" id="morningCount">0</div>
+                            <div class="label">حضور صباحي</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="number" id="eveningCount">0</div>
+                            <div class="label">حضور مسائي</div>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-info" onclick="viewRecords()" style="margin-bottom: 12px;">
+                        <i class="fas fa-chart-bar"></i> عرض سجلات الحضور
+                    </button>
+
+                    <button class="btn btn-warning" onclick="showChangePassword()" style="margin-bottom: 12px;">
+                        <i class="fas fa-key"></i> تغيير كلمة المرور
+                    </button>
+
+                    <button class="btn btn-outline" onclick="showSettings()">
+                        <i class="fas fa-cog"></i> الإعدادات المتقدمة
+                    </button>
+                </div>
+
+                <div id="settingsPanel" class="settings-panel hidden">
+                    <div class="section-title">الإعدادات المتقدمة</div>
+                    
+                    <div class="settings-option">
+                        <label for="autoThemeMode"><i class="fas fa-robot"></i> الوضع التلقائي (صباح/مساء)</label>
+                        <label class="switch">
+                            <input type="checkbox" id="autoThemeMode" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    
+                    <div class="settings-option">
+                        <label for="notifications"><i class="fas fa-bell"></i> الإشعارات</label>
+                        <label class="switch">
+                            <input type="checkbox" id="notifications" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    
+                    <div class="settings-option">
+                        <label for="locationAccuracy"><i class="fas fa-map-marker-alt"></i> دقة الموقع العالية</label>
+                        <label class="switch">
+                            <input type="checkbox" id="locationAccuracy" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+
+                    <div class="settings-option">
+                        <label for="animations"><i class="fas fa-film"></i> الرسوم المتحركة</label>
+                        <label class="switch">
+                            <input type="checkbox" id="animations" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+
+                    <div class="settings-option">
+                        <label for="soundEffects"><i class="fas fa-volume-up"></i> المؤثرات الصوتية</label>
+                        <label class="switch">
+                            <input type="checkbox" id="soundEffects">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    
+                    <button class="btn btn-primary" onclick="hideSettings()" style="margin-top: 20px;">
+                        <i class="fas fa-check"></i> حفظ الإعدادات
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="themeIndicator" class="theme-indicator hidden"></div>
+
+    <script>
+        // عرض رسالة الترحيب المنبثقة
+        function showWelcomePopup() {
+            const popup = document.getElementById('welcomePopup');
+            const countdownElement = document.getElementById('countdown');
+            let countdown = 5;
+            
+            // عرض الرسالة
+            popup.style.display = 'flex';
+            
+            // بدء العد التنازلي
+            const countdownInterval = setInterval(() => {
+                countdown--;
+                countdownElement.textContent = countdown;
+                
+                if (countdown <= 0) {
+                    clearInterval(countdownInterval);
+                    hideWelcomePopup();
+                }
+            }, 1000);
+        }
+
+        // إخفاء رسالة الترحيب
+        function hideWelcomePopup() {
+            const popup = document.getElementById('welcomePopup');
+            popup.classList.add('fade-out');
+            
+            setTimeout(() => {
+                popup.style.display = 'none';
+                popup.classList.remove('fade-out');
+            }, 500);
+        }
+
+        // إدارة نافذة الدردشة
+        function toggleChat() {
+            const chatContainer = document.getElementById('chatContainer');
+            chatContainer.classList.toggle('hidden');
+            
+            if (!chatContainer.classList.contains('hidden')) {
+                // تحديث وقت الترحيب
+                const now = new Date();
+                const timeString = now.toLocaleTimeString('ar-SA', { 
+                    hour: '2-digit', 
+                    minute: '2-digit'
+                });
+                document.getElementById('welcomeTime').textContent = timeString;
+                
+                // التركيز على حقل الإدخال
+                document.getElementById('chatInput').focus();
+            }
+        }
+
+        // إرسال رسالة
+        function sendMessage() {
+            const chatInput = document.getElementById('chatInput');
+            const message = chatInput.value.trim();
+            
+            if (message === '') return;
+            
+            const chatMessages = document.getElementById('chatMessages');
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('ar-SA', { 
+                hour: '2-digit', 
+                minute: '2-digit'
+            });
+            
+            // إضافة رسالة المستخدم
+            const messageElement = document.createElement('div');
+            messageElement.className = 'message-bubble sent';
+            messageElement.innerHTML = `
+                <div>${message}</div>
+                <div class="message-time">${timeString}</div>
+            `;
+            chatMessages.appendChild(messageElement);
+            
+            // مسح حقل الإدخال
+            chatInput.value = '';
+            
+            // محاكاة رد الدعم الفني
+            setTimeout(() => {
+                const responses = [
+                    "شكراً لتواصلكم، كيف يمكنني مساعدتك؟",
+                    "نحن هنا لخدمتك، هل تحتاج مساعدة في شيء محدد؟",
+                    "تم استلام رسالتك، سنقوم بالرد عليك قريباً",
+                    "هل تواجه مشكلة في النظام؟ يمكننا مساعدتك في حلها"
+                ];
+                const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+                
+                const responseElement = document.createElement('div');
+                responseElement.className = 'message-bubble received';
+                responseElement.innerHTML = `
+                    <div>${randomResponse}</div>
+                    <div class="message-time">${timeString}</div>
+                `;
+                chatMessages.appendChild(responseElement);
+                
+                // التمرير لأسفل
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }, 1000);
+            
+            // التمرير لأسفل
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        // مشاركة وسائط
+        function shareMedia(type) {
+            let input;
+            
+            if (type === 'image') {
+                input = document.createElement('input');
+                input.type = 'file';
+                input.accept = 'image/*';
+                input.onchange = function(e) {
+                    const file = e.target.files[0];
+                    if (file) {
+                        const reader = new FileReader();
+                        reader.onload = function(event) {
+                            const chatMessages = document.getElementById('chatMessages');
+                            const now = new Date();
+                            const timeString = now.toLocaleTimeString('ar-SA', { 
+                                hour: '2-digit', 
+                                minute: '2-digit'
+                            });
+                            
+                            const messageElement = document.createElement('div');
+                            messageElement.className = 'message-bubble sent';
+                            messageElement.innerHTML = `
+                                <div>شارك صورة:</div>
+                                <img src="${event.target.result}" class="media-preview" alt="صورة">
+                                <div class="message-time">${timeString}</div>
+                            `;
+                            chatMessages.appendChild(messageElement);
+                            chatMessages.scrollTop = chatMessages.scrollHeight;
+                        };
+                        reader.readAsDataURL(file);
+                    }
+                };
+                input.click();
+            }
+            else if (type === 'audio') {
+                input = document.createElement('input');
+                input.type = 'file';
+                input.accept = 'audio/*';
+                input.onchange = function(e) {
+                    const file = e.target.files[0];
+                    if (file) {
+                        const url = URL.createObjectURL(file);
+                        const chatMessages = document.getElementById('chatMessages');
+                        const now = new Date();
+                        const timeString = now.toLocaleTimeString('ar-SA', { 
+                            hour: '2-digit', 
+                            minute: '2-digit'
+                        });
+                        
+                        const messageElement = document.createElement('div');
+                        messageElement.className = 'message-bubble sent';
+                        messageElement.innerHTML = `
+                            <div>شارك تسجيل صوتي:</div>
+                            <audio controls class="audio-player">
+                                <source src="${url}" type="${file.type}">
+                                متصفحك لا يدعم تشغيل الصوتيات
+                            </audio>
+                            <div class="message-time">${timeString}</div>
+                        `;
+                        chatMessages.appendChild(messageElement);
+                        chatMessages.scrollTop = chatMessages.scrollHeight;
+                    }
+                };
+                input.click();
+            }
+            else if (type === 'video') {
+                input = document.createElement('input');
+                input.type = 'file';
+                input.accept = 'video/*';
+                input.onchange = function(e) {
+                    const file = e.target.files[0];
+                    if (file) {
+                        const url = URL.createObjectURL(file);
+                        const chatMessages = document.getElementById('chatMessages');
+                        const now = new Date();
+                        const timeString = now.toLocaleTimeString('ar-SA', { 
+                            hour: '2-digit', 
+                            minute: '2-digit'
+                        });
+                        
+                        const messageElement = document.createElement('div');
+                        messageElement.className = 'message-bubble sent';
+                        messageElement.innerHTML = `
+                            <div>شارك فيديو:</div>
+                            <video controls class="video-player">
+                                <source src="${url}" type="${file.type}">
+                                متصفحك لا يدعم تشغيل الفيديو
+                            </video>
+                            <div class="message-time">${timeString}</div>
+                        `;
+                        chatMessages.appendChild(messageElement);
+                        chatMessages.scrollTop = chatMessages.scrollHeight;
+                    }
+                };
+                input.click();
+            }
+        }
+
+        // فتح واتساب
+        function openWhatsApp() {
+            window.open('https://wa.me/qr/DODAWNF4JA67J1', '_blank');
+        }
+
+        // تحديث الساعة والتقويم
+        function updateClock() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('ar-SA', { 
+                hour12: true,
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            });
+            const dateString = now.toLocaleDateString('ar-SA', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+
+            document.getElementById('digitalTime').textContent = timeString;
+            document.getElementById('digitalDate').textContent = dateString;
+
+            // تحديث التقويم الهجري والميلادي
+            updateCalendar(now);
+        }
+
+        // تحديث التقويم
+        function updateCalendar(date) {
+            const gregorianDate = date.toLocaleDateString('ar-SA', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+
+            // محاكاة التاريخ الهجري
+            const hijriMonths = ['محرم', 'صفر', 'ربيع الأول', 'ربيع الثاني', 'جمادى الأولى', 'جمادى الآخرة', 'رجب', 'شعبان', 'رمضان', 'شوال', 'ذو القعدة', 'ذو الحجة'];
+            const hijriDay = date.getDate() % 30 || 30;
+            const hijriMonth = hijriMonths[date.getMonth()];
+            const hijriYear = 1445 + Math.floor((date.getFullYear() - 2023) * 0.97);
+            
+            const hijriDate = `${hijriDay} ${hijriMonth} ${hijriYear} هـ`;
+
+            document.getElementById('hijriDate').textContent = hijriDate;
+            document.getElementById('gregorianDate').textContent = gregorianDate;
+            document.getElementById('mainHijriDate').textContent = hijriDate;
+            document.getElementById('mainGregorianDate').textContent = gregorianDate;
+        }
+
+        // تطبيق الوضع الداكن
+        function applyTheme(theme) {
+            document.documentElement.setAttribute('data-theme', theme);
+            const themeToggle = document.getElementById('themeToggle');
+            
+            if (theme === 'dark') {
+                themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+                themeToggle.title = 'الوضع الفاتح';
+            } else {
+                themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+                themeToggle.title = 'الوضع الداكن';
+            }
+        }
+
+        // تبديل الوضع الداكن يدوياً
+        function toggleTheme() {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            let newTheme;
+            
+            if (currentTheme === 'light') {
+                newTheme = 'dark';
+                showThemeIndicator('الوضع الداكن');
+            } else {
+                newTheme = 'light';
+                showThemeIndicator('الوضع الفاتح');
+            }
+            
+            applyTheme(newTheme);
+        }
+
+        // عرض مؤشر تغيير الوضع
+        function showThemeIndicator(message) {
+            const indicator = document.getElementById('themeIndicator');
+            indicator.textContent = message;
+            indicator.classList.remove('hidden');
+            
+            setTimeout(() => {
+                indicator.classList.add('hidden');
+            }, 2500);
+        }
+
+        // تحديث الإحصائيات
+        function updateStats() {
+            const today = new Date().toISOString().split('T')[0];
+            fetch('/api/attendance')
+                .then(response => response.json())
+                .then(records => {
+                    const todayRecords = records.filter(r => r.date === today);
+                    document.getElementById('morningCount').textContent =
+                        todayRecords.filter(r => r.period === 'صباح').length;
+                    document.getElementById('eveningCount').textContent =
+                        todayRecords.filter(r => r.period === 'مساء').length;
+                });
+        }
+
+        // تسجيل الدخول
+        function login() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const loginBtn = document.getElementById('loginBtn');
+
+            if (!username || !password) {
+                showMessage('يرجى إدخال اسم المستخدم وكلمة المرور', 'error');
+                return;
+            }
+
+            loginBtn.innerHTML = '<div class="loader"></div> جاري تسجيل الدخول...';
+            loginBtn.disabled = true;
+
+            fetch('/api/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username, password })
+            })
+            .then(response => response.json())
+            .then(result => {
+                if (result.success) {
+                    document.getElementById('loginSection').classList.add('hidden');
+                    document.getElementById('mainSection').classList.remove('hidden');
+                    document.getElementById('userName').textContent = result.fullName;
+
+                    sessionStorage.setItem('currentUser', JSON.stringify({
+                        username: result.username,
+                        fullName: result.fullName,
+                        role: result.role
+                    }));
+
+                    updateStats();
+                    showMessage(`مرحباً بعودتك ${result.fullName}`, 'success');
+                } else {
+                    showMessage(result.message || 'اسم المستخدم أو كلمة المرور غير صحيحة', 'error');
+                }
+                
+                loginBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> تسجيل الدخول';
+                loginBtn.disabled = false;
+            })
+            .catch(error => {
+                showMessage('خطأ في الاتصال بالخادم', 'error');
+                loginBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> تسجيل الدخول';
+                loginBtn.disabled = false;
+            });
+        }
+
+        // عرض نموذج التسجيل
+        function showRegister() {
+            document.getElementById('loginSection').classList.add('hidden');
+            document.getElementById('registerSection').classList.remove('hidden');
+        }
+
+        // العودة لتسجيل الدخول
+        function showLogin() {
+            document.getElementById('registerSection').classList.add('hidden');
+            document.getElementById('loginSection').classList.remove('hidden');
+        }
+
+        // تسجيل مستخدم جديد
+        function register() {
+            const username = document.getElementById('newUsername').value;
+            const password = document.getElementById('newPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const fullName = document.getElementById('fullName').value;
+            const role = document.getElementById('userRole').value;
+            const registerBtn = document.getElementById('registerBtn');
+
+            if (!username || !password || !confirmPassword || !fullName) {
+                showMessage('يرجى ملء جميع الحقول', 'error');
+                return;
+            }
+
+            if (password !== confirmPassword) {
+                showMessage('كلمة المرور غير متطابقة', 'error');
+                return;
+            }
+
+            if (password.length < 4) {
+                showMessage('كلمة المرور يجب أن تكون 4 أحرف على الأقل', 'error');
+                return;
+            }
+
+            registerBtn.innerHTML = '<div class="loader"></div> جاري إنشاء الحساب...';
+            registerBtn.disabled = true;
+
+            fetch('/api/register', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username, password, fullName, role })
+            })
+            .then(response => response.json())
+            .then(result => {
+                if (result.success) {
+                    showMessage(result.message, 'success');
+                    
+                    document.getElementById('newUsername').value = '';
+                    document.getElementById('newPassword').value = '';
+                    document.getElementById('confirmPassword').value = '';
+                    document.getElementById('fullName').value = '';
+                    
+                    setTimeout(() => {
+                        showLogin();
+                    }, 2000);
+                } else {
+                    showMessage(result.message, 'error');
+                }
+                
+                registerBtn.innerHTML = '<i class="fas fa-user-plus"></i> إنشاء الحساب';
+                registerBtn.disabled = false;
+            })
+            .catch(error => {
+                showMessage('خطأ في الاتصال بالخادم', 'error');
+                registerBtn.innerHTML = '<i class="fas fa-user-plus"></i> إنشاء الحساب';
+                registerBtn.disabled = false;
+            });
+        }
+
+        // تسجيل الحضور
+        function recordAttendance(period) {
+            const messageDiv = document.getElementById('message');
+            const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
+
+            if (!currentUser) {
+                showMessage('يجب تسجيل الدخول أولاً', 'error');
+                return;
+            }
+
+            messageDiv.innerHTML = `
+                <div class="message info">
+                    <i class="fas fa-map-marker-alt"></i>
+                    جاري تحديد موقعك لتسجيل الحضور ${period}...
+                </div>
+            `;
+
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    position => {
+                        const lat = position.coords.latitude;
+                        const lng = position.coords.longitude;
+                        saveAttendance(currentUser.username, lat, lng, period);
+                    },
+                    error => {
+                        showManualLocation(period);
+                    },
+                    { enableHighAccuracy: true, timeout: 10000 }
+                );
+            } else {
+                showManualLocation(period);
+            }
+        }
+
+        // حفظ الحضور
+        function saveAttendance(username, lat, lng, period) {
+            fetch('/api/attendance', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username, latitude: lat, longitude: lng, period })
+            })
+            .then(response => response.json())
+            .then(result => {
+                if (result.success) {
+                    showMessage(`
+                        <i class="fas fa-check-circle"></i>
+                        تم تسجيل الحضور ${period} بنجاح!<br>
+                        <small>الموقع: ${lat.toFixed(6)}, ${lng.toFixed(6)}</small>
+                    `, 'success');
+                    updateStats();
+                } else {
+                    showMessage('خطأ في تسجيل الحضور', 'error');
+                }
+            })
+            .catch(error => {
+                showMessage('خطأ في الاتصال بالخادم', 'error');
+            });
+        }
+
+        // عرض رسالة
+        function showMessage(text, type) {
+            const messageDiv = document.getElementById('message');
+            messageDiv.innerHTML = `<div class="message ${type}">${text}</div>`;
+        }
+
+        // عرض خيارات الموقع اليدوي
+        function showManualLocation(period) {
+            const messageDiv = document.getElementById('message');
+            const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
+
+            messageDiv.innerHTML = `
+                <div class="message info">
+                    <h4><i class="fas fa-map-pin"></i> تحديد الموقع يدوياً</h4>
+                    <p>اختر موقع المركز:</p>
+                    <div class="manual-location">
+                        <button class="btn btn-info" onclick="saveAttendance('${currentUser.username}', 21.280257, 40.423311, '${period}')">
+                            مركز آسيا الرئيسي
+                        </button>
+                        <button class="btn btn-info" onclick="saveAttendance('${currentUser.username}', 21.266667, 40.416668, '${period}')">
+                            فرع الطائف
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        // عرض سجلات الحضور
+        function viewRecords() {
+            window.open('/admin.html', '_blank');
+        }
+
+        // تغيير كلمة المرور
+        function showChangePassword() {
+            alert('هذه الخاصية قيد التطوير');
+        }
+
+        // عرض الإعدادات
+        function showSettings() {
+            document.getElementById('settingsPanel').classList.remove('hidden');
+            document.getElementById('adminPanel').classList.add('hidden');
+        }
+
+        // إخفاء الإعدادات
+        function hideSettings() {
+            document.getElementById('settingsPanel').classList.add('hidden');
+            document.getElementById('adminPanel').classList.remove('hidden');
+            showMessage('تم حفظ الإعدادات بنجاح', 'success');
+        }
+
+        // تسجيل الخروج
+        function logout() {
+            sessionStorage.removeItem('currentUser');
+            document.getElementById('loginSection').classList.remove('hidden');
+            document.getElementById('mainSection').classList.add('hidden');
+            document.getElementById('username').value = '';
+            document.getElementById('password').value = '';
+            showMessage('تم تسجيل الخروج بنجاح', 'info');
+        }
+
+        // تهيئة الصفحة
+        window.onload = function() {
+            const currentUser = sessionStorage.getItem('currentUser');
+            
+            updateClock();
+            setInterval(updateClock, 1000);
+            
+            if (currentUser) {
+                const user = JSON.parse(currentUser);
+                document.getElementById('loginSection').classList.add('hidden');
+                document.getElementById('mainSection').classList.remove('hidden');
+                document.getElementById('userName').textContent = user.fullName;
+                updateStats();
+            }
+            
+            document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+            document.getElementById('logoutBtn').addEventListener('click', logout);
+            document.getElementById('settingsBtn').addEventListener('click', showSettings);
+            
+            document.getElementById('password').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') login();
+            });
+
+            // إعدادات الدردشة
+            document.getElementById('contactBtn').addEventListener('click', toggleChat);
+            document.getElementById('closeChat').addEventListener('click', toggleChat);
+            document.getElementById('sendBtn').addEventListener('click', sendMessage);
+            document.getElementById('chatInput').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') sendMessage();
+            });
+            document.getElementById('imageBtn').addEventListener('click', () => shareMedia('image'));
+            document.getElementById('audioBtn').addEventListener('click', () => shareMedia('audio'));
+            document.getElementById('videoBtn').addEventListener('click', () => shareMedia('video'));
+            document.getElementById('whatsappBtn').addEventListener('click', openWhatsApp);
+
+            // إظهار رسالة الترحيب بعد تحميل الصفحة
+            setTimeout(showWelcomePopup, 1000);
+        };
+    </script>
+</body>
+</html>
