@@ -1,0 +1,27 @@
+{
+  "background_color": "#ffffff",
+  "dir": "ltr",
+  "display": "standalone",
+  "name": "Al-Furqan Society",
+  "orientation": "any",
+  "scope": "/",
+  "short_name": "io.github.mraliomar.furqan",
+  "start_url": "/",
+  "theme_color": "#6c1515",
+  "id": "io.github.mraliomar.furqan",
+  "categories": [
+    "books &amp; reference",
+    "dating",
+    "development",
+    "education",
+    "navigation",
+    "news",
+    "photo",
+    "photo &amp; video",
+    "security",
+    "social",
+    "utilities",
+    "video",
+    "weather"
+  ]
+}
